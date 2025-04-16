@@ -1,0 +1,149 @@
+/* Calendar Gradient Styles */
+.calendar-day {
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid transparent !important; /* Add transparent border by default and force it */
+  }
+  
+  /* Add these new border color classes with !important to ensure they override other styles */
+  .adherence-border-none {
+    border-color: #e0e0e0 !important; /* Light gray for days with no medications */
+  }
+  
+  .adherence-border-low {
+    border-color: #ff4d4d !important; /* Red for low adherence (0-49%) */
+  }
+  
+  .adherence-border-medium {
+    border-color: #ffd700 !important; /* Yellow for medium adherence (50-89%) */
+  }
+  
+  .adherence-border-high {
+    border-color: #32cd32 !important; /* Green for high adherence (90-100%) */
+  }
+  
+  .calendar-day::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #e0e0e0; /* Default color for days with no data */
+  }
+  
+  /* Adherence gradient indicators */
+  .adherence-0 {
+    background: linear-gradient(to top, #ff4d4d 0%, #ff4d4d 4px, transparent 4px);
+  }
+  
+  .adherence-10 {
+    background: linear-gradient(to top, #ff6347 0%, #ff6347 4px, transparent 4px);
+  }
+  
+  .adherence-20 {
+    background: linear-gradient(to top, #ff7f50 0%, #ff7f50 4px, transparent 4px);
+  }
+  
+  .adherence-30 {
+    background: linear-gradient(to top, #ffa07a 0%, #ffa07a 4px, transparent 4px);
+  }
+  
+  .adherence-40 {
+    background: linear-gradient(to top, #ffb347 0%, #ffb347 4px, transparent 4px);
+  }
+  
+  .adherence-50 {
+    background: linear-gradient(to top, #ffd700 0%, #ffd700 4px, transparent 4px);
+  }
+  
+  .adherence-60 {
+    background: linear-gradient(to top, #dfff00 0%, #dfff00 4px, transparent 4px);
+  }
+  
+  .adherence-70 {
+    background: linear-gradient(to top, #bfff00 0%, #bfff00 4px, transparent 4px);
+  }
+  
+  .adherence-80 {
+    background: linear-gradient(to top, #9acd32 0%, #9acd32 4px, transparent 4px);
+  }
+  
+  .adherence-90 {
+    background: linear-gradient(to top, #7cfc00 0%, #7cfc00 4px, transparent 4px);
+  }
+  
+  .adherence-100 {
+    background: linear-gradient(to top, #32cd32 0%, #32cd32 4px, transparent 4px);
+  }
+  
+  /* Calendar legend */
+  .calendar-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+  }
+  
+  .legend-gradient {
+    height: 20px;
+    width: 200px;
+    margin: 0 10px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #ff4d4d 0%, #ff7f50 20%, #ffd700 50%, #9acd32 80%, #32cd32 100%);
+  }
+  
+  .legend-label {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  /* Day with dot indicator for medications */
+  .medication-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #4f8ef7;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Today indicator with special styling */
+  .today-indicator {
+    border: 2px solid #4f8ef7;
+  }
+  
+  /* Make sure the selected day border overrides all others */
+  .selected-day {
+    border: 3px solid #4f8ef7 !important;
+    box-shadow: 0 0 0 1px #4f8ef7 !important;
+  }
+  
+  /* Tooltip for day details */
+  .day-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .calendar-day:hover .day-tooltip {
+    opacity: 1;
+  }
+  
