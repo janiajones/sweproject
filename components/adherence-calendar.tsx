@@ -31,30 +31,6 @@ interface AdherenceCalendarProps {
   shouldTakeMedication: (medication: Medication, date: string) => boolean
 }
 
-// Define colors for different adherence levels
-const ADHERENCE_COLORS = {
-  high: "#32cd32", // Green for high adherence (90-100%)
-  medium: "#ffd700", // Yellow for medium adherence (50-89%)
-  low: "#ff4d4d", // Red for low adherence (0-49%)
-  none: "#e0e0e0", // Light gray for no medications
-  selected: "#4F8EF7", // Blue for selected day
-}
-
-// Define gradient colors for the bottom indicator
-const GRADIENT_COLORS = {
-  0: "#ff4d4d",
-  10: "#ff6347",
-  20: "#ff7f50",
-  30: "#ffa07a",
-  40: "#ffb347",
-  50: "#ffd700",
-  60: "#dfff00",
-  70: "#bfff00",
-  80: "#9acd32",
-  90: "#7cfc00",
-  100: "#32cd32",
-}
-
 const AdherenceCalendar: React.FC<AdherenceCalendarProps> = ({
   medications,
   medicationStatus,
@@ -65,10 +41,12 @@ const AdherenceCalendar: React.FC<AdherenceCalendarProps> = ({
   // Calculate adherence for each day
   const markedDates = useMemo(() => {
     const result: any = {}
+    const today = new Date().toISOString().split("T")[0]
 
     // Get all dates from medication status
     const allDates = Object.keys(medicationStatus)
 
+    // Process all dates with medication status
     allDates.forEach((date) => {
       const dateStatus = medicationStatus[date]
       let totalScheduled = 0
@@ -97,65 +75,72 @@ const AdherenceCalendar: React.FC<AdherenceCalendarProps> = ({
         adherencePercent = Math.round((totalTaken / totalScheduled) * 100)
       }
 
-      // Map to closest adherence class (0, 10, 20, ..., 100)
-      const adherenceClass = Math.floor(adherencePercent / 10) * 10
-
       // Determine border color based on adherence percentage
-      let borderColor = ADHERENCE_COLORS.none
+      let borderColor = "#e0e0e0" // Default gray
       if (totalScheduled > 0) {
         if (adherencePercent >= 90) {
-          borderColor = ADHERENCE_COLORS.high
+          borderColor = "#32cd32" // Green for high adherence
         } else if (adherencePercent >= 50) {
-          borderColor = ADHERENCE_COLORS.medium
+          borderColor = "#ffd700" // Yellow for medium adherence
         } else {
-          borderColor = ADHERENCE_COLORS.low
+          borderColor = "#ff4d4d" // Red for low adherence
         }
       }
 
-      // Get gradient color for the bottom indicator
-      const gradientColor = GRADIENT_COLORS[adherenceClass as keyof typeof GRADIENT_COLORS] || GRADIENT_COLORS[0]
-
-      // Add to marked dates
+      // Add to marked dates with explicit styling
       result[date] = {
+        selected: date === selectedDate,
+        selectedColor: date === selectedDate ? "#4F8EF7" : undefined,
+        marked: totalScheduled > 0,
+        dotColor: "transparent", // Hide the dots
         customStyles: {
           container: {
-            style: {
-              borderWidth: date === selectedDate ? 3 : 2,
-              borderColor: date === selectedDate ? ADHERENCE_COLORS.selected : borderColor,
-              borderRadius: 4,
-              overflow: "hidden",
-              position: "relative",
-            },
+            backgroundColor: date === selectedDate ? "#e6f0ff" : undefined,
+            borderWidth: 2,
+            borderColor: date === selectedDate ? "#4F8EF7" : borderColor,
+            borderRadius: 5,
           },
           text: {
-            style: {
-              color: "black", // Ensure text is visible
-            },
+            color: "black",
+            fontWeight: date === today ? "bold" : "normal",
+          },
+          dot: {
+            color: "transparent",
+            backgroundColor: "transparent",
+            width: 0,
+            height: 0,
           },
         },
-        // Add dot if there are medications for this day
-        marked: totalScheduled > 0,
-        // Handle selected date
-        selected: date === selectedDate,
-        selectedColor: "transparent", // Use our custom styling instead
       }
-
-      // Add tooltip data
-      result[date].tooltip = `${adherencePercent}% taken (${totalTaken}/${totalScheduled})`
     })
 
-    // Add selected date if not already in the list
+    // Make sure selected date is marked even if no medication data
     if (!result[selectedDate]) {
       result[selectedDate] = {
         selected: true,
-        selectedColor: "transparent",
+        selectedColor: "#e6f0ff",
         customStyles: {
           container: {
-            style: {
-              borderWidth: 3,
-              borderColor: ADHERENCE_COLORS.selected,
-              borderRadius: 4,
-            },
+            backgroundColor: "#e6f0ff",
+            borderWidth: 2,
+            borderColor: "#4F8EF7",
+            borderRadius: 5,
+          },
+          text: {
+            color: "black",
+            fontWeight: selectedDate === today ? "bold" : "normal",
+          },
+        },
+      }
+    }
+
+    // Add today's date if not already marked
+    if (!result[today]) {
+      result[today] = {
+        customStyles: {
+          text: {
+            color: "#4F8EF7",
+            fontWeight: "bold",
           },
         },
       }
@@ -170,61 +155,48 @@ const AdherenceCalendar: React.FC<AdherenceCalendarProps> = ({
         onDayPress={onDateSelect}
         markedDates={markedDates}
         markingType="custom"
+        hideExtraDays={true}
+        enableSwipeMonths={true}
         theme={{
           todayTextColor: "#4F8EF7",
           arrowColor: "#4F8EF7",
-          // Custom styles for the calendar
-          "stylesheet.calendar.main": {
-            container: {
-              paddingLeft: 0,
-              paddingRight: 0,
+          dotColor: "transparent",
+          textDayFontSize: 16,
+          textMonthFontSize: 16,
+          textDayHeaderFontSize: 14,
+          // Completely disable dots
+          "stylesheet.day.basic": {
+            dot: {
+              width: 0,
+              height: 0,
+              opacity: 0,
             },
           },
-          "stylesheet.day.basic": {
-            base: {
-              width: 32,
-              height: 32,
-              alignItems: "center",
-            },
-            today: {
-              borderColor: "#4F8EF7",
-              borderWidth: 1,
-            },
+          "stylesheet.day.period": {
             dot: {
-              width: 4,
-              height: 4,
-              marginTop: 1,
-              borderRadius: 2,
-              opacity: 0, // Hide the default dots
+              width: 0,
+              height: 0,
+              opacity: 0,
             },
           },
         }}
       />
 
-      {/* Calendar Legend */}
-      <View style={styles.legend}>
-        <Text style={styles.legendLabel}>0%</Text>
-        <View style={styles.legendGradient} />
-        <Text style={styles.legendLabel}>100%</Text>
-      </View>
+      {/* Legend for adherence levels */}
+      <View style={styles.legendContainer}>
+        <Text style={styles.legendTitle}>Medication Adherence</Text>
 
-      {/* Border Color Legend */}
-      <View style={styles.borderLegend}>
-        <View style={styles.borderLegendItem}>
-          <View style={[styles.borderSample, { borderColor: ADHERENCE_COLORS.low }]} />
-          <Text style={styles.borderLegendText}>Low (0-49%)</Text>
-        </View>
-        <View style={styles.borderLegendItem}>
-          <View style={[styles.borderSample, { borderColor: ADHERENCE_COLORS.medium }]} />
-          <Text style={styles.borderLegendText}>Medium (50-89%)</Text>
-        </View>
-        <View style={styles.borderLegendItem}>
-          <View style={[styles.borderSample, { borderColor: ADHERENCE_COLORS.high }]} />
-          <Text style={styles.borderLegendText}>High (90-100%)</Text>
+        <View style={styles.legendRow}>
+          <View style={[styles.legendBox, { borderColor: "#ff4d4d" }]} />
+          <Text style={styles.legendText}>Low (0-49%)</Text>
+
+          <View style={[styles.legendBox, { borderColor: "#ffd700" }]} />
+          <Text style={styles.legendText}>Medium (50-89%)</Text>
+
+          <View style={[styles.legendBox, { borderColor: "#32cd32" }]} />
+          <Text style={styles.legendText}>High (90-100%)</Text>
         </View>
       </View>
-
-      <Text style={styles.legendTitle}>Medication Adherence</Text>
     </View>
   )
 }
@@ -241,58 +213,36 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 2,
   },
-  legend: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+  legendContainer: {
     marginTop: 15,
     padding: 10,
+    backgroundColor: "#f8f9fa",
     borderRadius: 8,
-    backgroundColor: "#f8f9fa",
-  },
-  legendGradient: {
-    height: 20,
-    width: 200,
-    marginHorizontal: 10,
-    borderRadius: 4,
-    backgroundColor: "#f8f9fa",
-    // Create a gradient effect with a background image
-    backgroundImage: "linear-gradient(to right, #ff4d4d 0%, #ff7f50 20%, #ffd700 50%, #9acd32 80%, #32cd32 100%)",
-  },
-  legendLabel: {
-    fontSize: 12,
-    color: "#666",
   },
   legendTitle: {
     textAlign: "center",
-    marginTop: 8,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "500",
+    marginBottom: 10,
     color: "#495057",
   },
-  // New styles for border color legend
-  borderLegend: {
+  legendRow: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "#f8f9fa",
-    borderRadius: 8,
-  },
-  borderLegendItem: {
+    flexWrap: "wrap",
+    justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
   },
-  borderSample: {
-    width: 16,
-    height: 16,
+  legendBox: {
+    width: 20,
+    height: 20,
     borderWidth: 2,
     borderRadius: 4,
-    marginRight: 4,
+    marginHorizontal: 5,
   },
-  borderLegendText: {
-    fontSize: 10,
+  legendText: {
+    fontSize: 12,
     color: "#666",
+    marginRight: 15,
   },
 })
 

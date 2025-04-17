@@ -12,6 +12,7 @@ import {
   Platform,
   Alert,
   Modal,
+  Image,
 } from "react-native"
 import type { DateData } from "react-native-calendars"
 import { StatusBar } from "expo-status-bar"
@@ -21,6 +22,16 @@ import { styles } from "../../styles/app-styles"
 
 // Import the new component
 import AdherenceCalendar from "../../components/adherence-calendar"
+
+// Import medication icons
+// In React Native, we need to import images this way
+const medicineIcons = [
+  require("../../assets/images/icon1.gif"),
+  require("../../assets/images/icon2.gif"),
+  require("../../assets/images/icon3.gif"),
+  require("../../assets/images/icon4.gif"),
+  require("../../assets/images/icon5.gif"),
+]
 
 // Define TypeScript interfaces
 interface Medication {
@@ -301,54 +312,67 @@ export default function App() {
     }, 1500)
   }
 
-  const renderHomeScreen = () => (
-    <View style={styles.container}>
-      <Text style={styles.title}>Medication Tracker</Text>
+  // Replace the renderHomeScreen function with this updated version
+  const renderHomeScreen = () => {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Medication Tracker</Text>
 
-      <TouchableOpacity style={styles.logButton} onPress={() => setScreen("calendar")}>
-        <Text style={styles.logButtonText}>Log Medication</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.logButton} onPress={() => setScreen("calendar")}>
+          <Text style={styles.logButtonText}>Log Medication</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.addButton} onPress={() => setScreen("addMedication")}>
-        <Text style={styles.addButtonText}>Add New Medication</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.addButton} onPress={() => setScreen("addMedication")}>
+          <Text style={styles.addButtonText}>Add New Medication</Text>
+        </TouchableOpacity>
 
-      {medications.length > 0 ? (
-        <View style={styles.medicationSummary}>
-          <Text style={styles.summaryTitle}>Your Medications ({medications.length})</Text>
-          <ScrollView style={styles.summaryList}>
-            {medications.map((med) => (
-              <View key={med.id} style={styles.summaryItem}>
-                <Text style={styles.summaryName}>{med.name}</Text>
-                <Text style={styles.summaryDetails}>{med.dosage}</Text>
-                <Text style={styles.summaryDetails}>Times: {med.times.join(", ")}</Text>
-                <Text style={styles.summaryDetails}>
-                  Frequency: {med.frequency === "Custom" ? med.customFrequency : med.frequency}
-                </Text>
-                {med.firstTakenDate && <Text style={styles.summaryDetails}>First taken: {med.firstTakenDate}</Text>}
-                <View style={styles.scheduleIndicator}>
-                  <Text
-                    style={[
-                      styles.scheduleText,
-                      shouldTakeMedication(med, today) ? styles.takeTodayText : styles.skipTodayText,
-                    ]}
-                  >
-                    {shouldTakeMedication(med, today)
-                      ? "✓ Take today"
-                      : `✗ Skip today (Next dose ${getNextDoseDate(med, today)})`}
-                  </Text>
-                </View>
+        {medications.length > 0 ? (
+          <View style={styles.medicationSummary}>
+            <Text style={styles.summaryTitle}>Your Medications ({medications.length})</Text>
+            <ScrollView style={styles.summaryList}>
+              <View style={styles.medicationGrid}>
+                {medications.map((med, index) => (
+                  <View key={med.id} style={styles.medicationCard}>
+                    <View style={styles.medicationImageContainer}>
+                      {/* Use Image component for GIFs */}
+                      <Image
+                        source={medicineIcons[index % medicineIcons.length]}
+                        style={{ width: "100%", height: "100%" }}
+                        resizeMode="cover"
+                      />
+                    </View>
+                    <View style={styles.medicationCardContent}>
+                      <Text style={styles.summaryName}>{med.name}</Text>
+                      <Text style={styles.summaryDetails}>{med.dosage}</Text>
+                      <Text style={styles.summaryDetails} numberOfLines={1} ellipsizeMode="tail">
+                        {med.times.join(", ")}
+                      </Text>
+                      <View style={styles.scheduleIndicator}>
+                        <Text
+                          style={[
+                            styles.scheduleText,
+                            shouldTakeMedication(med, today) ? styles.takeTodayText : styles.skipTodayText,
+                          ]}
+                        >
+                          {shouldTakeMedication(med, today) ? "✓ Take today" : "✗ Skip today"}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                ))}
               </View>
-            ))}
-          </ScrollView>
-        </View>
-      ) : (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyStateText}>No medications added yet. Tap "Add New Medication" to get started.</Text>
-        </View>
-      )}
-    </View>
-  )
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyStateText}>
+              No medications added yet. Tap "Add New Medication" to get started.
+            </Text>
+          </View>
+        )}
+      </View>
+    )
+  }
 
   // Then modify the renderCalendarScreen function to use the new component
   // This is just the modified part of the function, not the entire App.tsx

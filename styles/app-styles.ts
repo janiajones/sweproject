@@ -429,4 +429,32 @@ export const styles = StyleSheet.create({
     color: "#6c757d",
     textAlign: "center",
   },
+  medicationGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginHorizontal: -5, // Compensate for the padding in the cards
+  },
+  medicationCard: {
+    width: "48%", // Just under 50% to allow for spacing
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 2,
+    overflow: "hidden",
+  },
+  medicationImageContainer: {
+    width: "100%",
+    aspectRatio: 1, // Square aspect ratio
+    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  medicationCardContent: {
+    padding: 10,
+  },
 })
