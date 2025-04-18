@@ -1,0 +1,460 @@
+import { StyleSheet } from "react-native"
+
+export const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  logButton: {
+    backgroundColor: "#4F8EF7",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  logButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  addButton: {
+    backgroundColor: "#28a745",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  addButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  backButton: {
+    backgroundColor: "#6c757d",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  backButtonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  medicationList: {
+    flex: 1,
+  },
+  medicationItem: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 2,
+  },
+  skippedMedicationItem: {
+    backgroundColor: "#f8f9fa",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    borderLeftWidth: 4,
+    borderLeftColor: "#6c757d",
+  },
+  medicationHeader: {
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    paddingBottom: 8,
+  },
+  medicationInfo: {
+    flex: 1,
+  },
+  medicationName: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  medicationDetails: {
+    fontSize: 14,
+    color: "#666",
+    marginTop: 4,
+  },
+  timeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+  },
+  timeLabel: {
+    fontSize: 16,
+    fontWeight: "500",
+    flex: 1,
+  },
+  statusButtons: {
+    flexDirection: "row",
+  },
+  statusButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    backgroundColor: "#e9ecef",
+    marginLeft: 8,
+  },
+  takenButton: {
+    backgroundColor: "#28a745",
+  },
+  notTakenButton: {
+    backgroundColor: "#dc3545",
+  },
+  statusButtonText: {
+    color: "#212529",
+    fontSize: 14,
+  },
+  successMessage: {
+    position: "absolute",
+    bottom: 80,
+    left: 20,
+    right: 20,
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  takenMessage: {
+    backgroundColor: "rgba(40, 167, 69, 0.9)",
+  },
+  notTakenMessage: {
+    backgroundColor: "rgba(220, 53, 69, 0.9)",
+  },
+  successMessageText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  // Add medication form styles
+  addMedicationContent: {
+    paddingBottom: 40,
+  },
+  formGroup: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: "white",
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    fontSize: 16,
+  },
+  selectButton: {
+    backgroundColor: "white",
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    justifyContent: "center",
+  },
+  selectButtonText: {
+    fontSize: 16,
+  },
+  saveButton: {
+    backgroundColor: "#28a745",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  saveButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  // Home screen medication summary
+  medicationSummary: {
+    marginTop: 20,
+    flex: 1,
+  },
+  summaryTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 10,
+  },
+  summaryList: {
+    flex: 1,
+  },
+  summaryItem: {
+    backgroundColor: "white",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 1,
+  },
+  summaryName: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  summaryDetails: {
+    fontSize: 14,
+    color: "#666",
+    marginTop: 2,
+  },
+  scheduleIndicator: {
+    marginTop: 8,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: "#f0f0f0",
+  },
+  scheduleText: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  takeTodayText: {
+    color: "#28a745",
+  },
+  skipTodayText: {
+    color: "#6c757d",
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  emptyStateText: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#666",
+    lineHeight: 24,
+  },
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: "85%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    maxHeight: "80%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  modalSubtitle: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  timeOption: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 8,
+    backgroundColor: "#f8f9fa",
+  },
+  selectedTimeOption: {
+    backgroundColor: "#e6f0ff",
+    borderColor: "#4F8EF7",
+    borderWidth: 1,
+  },
+  timeOptionText: {
+    fontSize: 16,
+  },
+  selectedTimeOptionText: {
+    color: "#4F8EF7",
+    fontWeight: "bold",
+  },
+  checkboxContainer: {
+    width: 24,
+    height: 24,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: "#aaa",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  checkboxSelected: {
+    backgroundColor: "#4F8EF7",
+    borderColor: "#4F8EF7",
+  },
+  checkmark: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  doneButton: {
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 8,
+    backgroundColor: "#4F8EF7",
+    alignItems: "center",
+  },
+  doneButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  cancelButton: {
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 8,
+    backgroundColor: "#f8f9fa",
+    alignItems: "center",
+  },
+  cancelButtonText: {
+    color: "#dc3545",
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  customInput: {
+    backgroundColor: "white",
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    fontSize: 16,
+    marginVertical: 15,
+  },
+  selectedTimesContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 10,
+  },
+  selectedTimeTag: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#e6f0ff",
+    borderRadius: 16,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  selectedTimeText: {
+    color: "#4F8EF7",
+    fontSize: 14,
+  },
+  removeTimeButton: {
+    marginLeft: 6,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: "#4F8EF7",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  removeTimeButtonText: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "bold",
+    lineHeight: 20,
+  },
+  // Skipped medication styles
+  skippedInfo: {
+    backgroundColor: "#f8f9fa",
+    padding: 10,
+    borderRadius: 6,
+    marginTop: 5,
+  },
+  skippedText: {
+    color: "#6c757d",
+    fontSize: 14,
+    fontStyle: "italic",
+  },
+  noMedicationsCard: {
+    backgroundColor: "#e9ecef",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  noMedicationsTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+    color: "#495057",
+  },
+  noMedicationsText: {
+    fontSize: 16,
+    color: "#6c757d",
+    textAlign: "center",
+  },
+  medicationGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginHorizontal: -5, // Compensate for the padding in the cards
+  },
+  medicationCard: {
+    width: "48%", // Just under 50% to allow for spacing
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 2,
+    overflow: "hidden",
+  },
+  medicationImageContainer: {
+    width: "100%",
+    aspectRatio: 1, // Square aspect ratio
+    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  medicationCardContent: {
+    padding: 10,
+  },
+})
